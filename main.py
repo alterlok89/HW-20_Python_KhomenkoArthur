@@ -71,34 +71,35 @@ mileage = []
 auto_url = []
 
 start = time.perf_counter()
-pages = 2  # в моем случае 78 страниц
+pages = 79  # в моем случае 79 страниц
 for page in range(0, pages):
     auto_parcing(page)
 end = time.perf_counter()
 print(f'time = {end - start:0.2f} s')
 print(len(car_name), len(mileage), len(prices), len(auto_url),)
+# time = 4652.56 s обрабатывало 79 страниц всего авто Audi 7891
 
-dict = {}
-adresses = []
-prices = []
-car_name = []
-mileage = []
-auto_url = []
-threads = []
-
-start = time.perf_counter()
-pages = 2  # в моем случае 78 страниц
-for page in range(0, pages):
-    t = Thread(target=auto_parcing(page), args=(page,))
-    t.start()
-    threads.append(t)
-
-for t in threads:
-    t.join()
-end = time.perf_counter()
-print(f'time = {end - start:0.2f} s')
-
-print(len(car_name), len(mileage), len(prices), len(auto_url),)
+# dict = {}
+# adresses = []
+# prices = []
+# car_name = []
+# mileage = []
+# auto_url = []
+# threads = []
+#
+# start = time.perf_counter()
+# pages = 79  # в моем случае 78 страниц
+# for page in range(0, pages):
+#     t = Thread(target=auto_parcing(page), args=(page,))
+#     t.start()
+#     threads.append(t)
+#
+# for t in threads:
+#     t.join()
+# end = time.perf_counter()
+# print(f'time = {end - start:0.2f} s')
+#
+# print(len(car_name), len(mileage), len(prices), len(auto_url),)
 
 for i in range(0, len(car_name)):
       dict[f'Car number {i+1}'] = {
@@ -159,9 +160,9 @@ def iscert_table_auto(table: str, auto: dict):
 
 
 # создаем таблицу в БД
-# create_table_auto('AUDI_autoria', dict)
+create_table_auto('AUDI_autoria', dict)
 # добавляем данные в БД
-# iscert_table_auto('AUDI_autoria', dict)
+iscert_table_auto('AUDI_autoria', dict)
 
 def get_auto(table: str, auto: str):
     connect = sqlite3.connect(f'{table}_data_base.db')
